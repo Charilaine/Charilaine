@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+  <style>
+    .correct {
+      color: green;
+    }
+
+    .incorrect {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz</h1>
+
+  <div id="quiz"></div>
+
+  <script>
+    // Definieer de vraag-objecten
+    let quizVragen = [
+      {
+        vraag: "Wat is de hoofdstad van Frankrijk?",
+        antwoorden: ["Londen", "Parijs", "Madrid", "Rome"],
+        juisteAntwoord: 1
+      },
+      {
+        vraag: "Hoeveel planeten zijn er in ons zonnestelsel?",
+        antwoorden: ["6", "7", "8", "9"],
+        juisteAntwoord: 2
+      },
+      {
+        vraag: "Wat is de hoogste berg ter wereld?",
+        antwoorden: ["Mount Everest", "K2", "Matterhorn", "Kilimanjaro"],
+        juisteAntwoord: 0
+      },
+      {
+        vraag: "Wat is de hoofdstad van Australië?",
+        antwoorden: ["Sydney", "Melbourne", "Canberra", "Perth"],
+        juisteAntwoord: 2
+      },
+      {
+        vraag: "Wie schilderde het beroemde schilderij 'De Nachtwacht'?",
+        antwoorden: ["Rembrandt van Rijn", "Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci"],
+        juisteAntwoord: 0
+      },
+      {
+        vraag: "Hoeveel sterren heeft de Amerikaanse vlag?",
+        antwoorden: ["48", "50", "52", "54"],
+        juisteAntwoord: 1
+      },
+      {
+        vraag: "Welk land organiseerde de Olympische Spelen van 2016?",
+        antwoorden: ["Brazilië", "China", "Verenigde Staten", "Rusland"],
+        juisteAntwoord: 0
+      },
+      {
+        vraag: "Wie is de regisseur van de film 'Culpa Mia'?",
+        antwoorden: ["Martin Scorsese", "Pedro Almodóvar", "Quentin Tarantino", "Domingo González"],
+        juisteAntwoord: 3
+      },
+      {
+        vraag: "Welke kleur krijg je als je blauw en geel mengt?",
+        antwoorden: ["Groen", "Oranje", "Paars", "Bruin"],
+        juisteAntwoord: 0
+      },
+      {
+        vraag: "Hoeveel spelers telt een volledig voetbalteam?",
+        antwoorden: ["9", "10", "11", "12"],
+        juisteAntwoord: 2
+      }
+    ];
+
+    // Functie om de vragen weer te geven
+    function weergeefVragen() {
+      let quizContainer = document.getElementById("quiz");
+
+      for (let i = 0; i < quizVragen.length; i++) {
+        let vraag = quizVragen[i].vraag;
+        let antwoorden = quizVragen[i].antwoorden;
+        let juisteAntwoord = quizVragen[i].juisteAntwoord;
+
+        let vraagElement = document.createElement("div");
+        vraagElement.innerHTML = "Vraag " + (i + 1) + ": " + vraag;
+        vraagElement.id = "vraag" + i;
+        quizContainer.appendChild(vraagElement);
+
+        for (let j = 0; j < antwoorden.length; j++) {
+          let antwoordElement = document.createElement("input");
+          antwoordElement.type = "radio";
+          antwoordElement.name = "vraag" + i;
+          antwoordElement.value = j;
+          quizContainer.appendChild(antwoordElement);
+
+          let labelElement = document.createElement("label");
+          labelElement.innerHTML = antwoorden[j];
+          quizContainer.appendChild(labelElement);
+
+          quizContainer.appendChild(document.createElement("br"));
+        }
+
+        quizContainer.appendChild(document.createElement("br"));
+      }
+
+      let controleerButton = document.createElement("button");
+      controleerButton.innerHTML = "Controleer antwoorden";
+      quizContainer.appendChild(controleerButton);
+
+      controleerButton.addEventListener("click", function() {
+        let score = 0;
+
+        for (let i = 0; i < quizVragen.length; i++) {
+          let gebruikerAntwoord = parseInt(document.querySelector('input[name="vraag' + i + '"]:checked').value);
+          let vraagElement = document.getElementById("vraag" + i);
+
+          let antwoordElementen = vraagElement.querySelectorAll("input[type=radio]");
+
+          // Verwijder de kleurklassen van de vorige beoordeling
+          vraagElement.classList.remove("correct", "incorrect");
+
+          for (let j = 0; j < antwoordElementen.length; j++) {
+            let antwoordElement = antwoordElementen[j];
+            antwoordElement.disabled = true;
+
+            if (j === quizVragen[i].juisteAntwoord) {
+              if (antwoordElement.checked) {
+                antwoordElement.labels[0].classList.add("correct");
+              }
+            } else {
+              if (antwoordElement.checked) {
+                antwoordElement.labels[0].classList.add("incorrect");
+              }
+            }
+          }
+
+          // De feedback is dat de vragen die goed zijn beantwoord groen worden en de vragen die fout zijn beantwoord worden rood (na het drukken op de "controleren" knop) 
+          if (gebruikerAntwoord === quizVragen[i].juisteAntwoord) {
+            score++;
+            vraagElement.classList.add("correct");
+          } else {
+            vraagElement.classList.add("incorrect");
+          }
+        }
+
+        let scoreElement = document.createElement("p");
+        scoreElement.innerHTML = "Uw score: " + score + "/" + quizVragen.length;
+        quizContainer.appendChild(scoreElement);
+      });
+    }
+
+    // Start de quiz wanneer de pagina geladen is
+    window.onload = function() {
+      weergeefVragen();
+    };
+  </script>
+</body>
+</html>
+
+<p href="opdrachten/06 Quizz.html"> </p>
