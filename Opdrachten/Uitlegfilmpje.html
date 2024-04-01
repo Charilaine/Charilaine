@@ -5,43 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uitleg filmpje</title>
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #0e6357;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         #container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 1200px; 
             padding: 20px;
         }
 
-        video {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .game-link {
-            display: block;
-            text-align: center;
-            font-size: 24px;
-            color: white;
-            text-decoration: none;
-        }
-
-        .game-link:hover {
-            color: white;
+        iframe {
+            width: 800px; 
+            height: 450px; 
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <video width="640" height="360" controls>
-            <source src="video-output-E84A7FEB-9618-42A8-BCED-E78B7C2DFD59.mp4" type="video/mp4">
-        </video>
+        <iframe width="800" height="450" src="https://www.youtube.com/embed/nV4_2F74prA" frameborder="0" allowfullscreen></iframe>
     </div>
 </body>
 </html>
+
+
